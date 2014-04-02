@@ -11,7 +11,7 @@ module Rapleaf
         open_timeout:  90,
         headers:       {"Connection" => "Keep-Alive"}
       )
-      end
+      
 
       Client.new(client, Rapleaf::Marketo::AuthenticationHeader.new(access_key, secret_key))
     end
