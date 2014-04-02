@@ -4,7 +4,7 @@ module Rapleaf
   module Marketo
     def self.new_client(access_key, secret_key, api_subdomain = 'na-i', api_version = '1_5', document_version = '1_4')
       client = Savon.client(
-        log:         false,
+        log:         true,
         endpoint:      "https://#{api_subdomain}.marketo.com/soap/mktows/#{api_version}",
         wsdl:          "http://app.marketo.com/soap/mktows/#{document_version}?WSDL",
         read_timeout:  90,
@@ -25,7 +25,7 @@ module Rapleaf
     #
     # == get_lead_by_email:
     #
-    # lead_record = client.get_lead_by_email('sombody@examnple.com')
+    # lead_record = client.get_lead_by_email('will@orbotix.com')
     #
     # puts lead_record.idnum
     #
@@ -113,7 +113,7 @@ module Rapleaf
                        :attribute => attributes}}})
           return LeadRecord.from_hash(response[:success_sync_lead][:result][:lead_record])
         rescue Exception => e
-          @logger.log(e) if @logger
+          puts e.message if @logger
           return nil
         end
       end
@@ -139,7 +139,7 @@ module Rapleaf
                   }})
           return LeadRecord.from_hash(response[:success_sync_lead][:result][:lead_record])
         rescue Exception => e
-          @logger.log(e) if @logger
+          puts e.message if @logger
           return nil
         end
       end
@@ -171,7 +171,7 @@ module Rapleaf
           })
           return response
         rescue Exception => e
-          @logger.log(e) if @logger
+          puts e.message if @logger
           return nil
         end
       end
@@ -181,7 +181,7 @@ module Rapleaf
           response = send_request("ns1:paramsGetLead", {:lead_key => lead_key.to_hash})
           return LeadRecord.from_hash(response[:success_get_lead][:result][:lead_record_list][:lead_record])
         rescue Exception => e
-          @logger.log(e) if @logger
+          puts e.message if @logger
           return nil
         end
       end
